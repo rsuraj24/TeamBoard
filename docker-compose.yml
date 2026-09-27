@@ -1,0 +1,15 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-teamboard}
+      POSTGRES_USER: ${POSTGRES_USER:-teamboard}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-teamboard}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

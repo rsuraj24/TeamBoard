@@ -1,0 +1,23 @@
+{
+  "info": {
+    "name": "TeamBoard API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {"key": "base_url", "value": "http://localhost:8000"},
+    {"key": "access_token", "value": ""}
+  ],
+  "item": [
+    {"name": "Register company", "request": {"method": "POST", "header": [{"key": "Content-Type", "value": "application/json"}], "body": {"mode": "raw", "raw": "{\n  \"username\": \"acmecorp\",\n  \"password\": \"securepass123\",\n  \"company_name\": \"Acme Corp\",\n  \"email\": \"dev@acmecorp.com\"\n}"}, "url": "{{base_url}}/api/auth/register/"}},
+    {"name": "Register duplicate username", "request": {"method": "POST", "header": [{"key": "Content-Type", "value": "application/json"}], "body": {"mode": "raw", "raw": "{\"username\":\"acmecorp\",\"password\":\"securepass123\",\"company_name\":\"Other\",\"email\":\"other@example.com\"}"}, "url": "{{base_url}}/api/auth/register/"}},
+    {"name": "Login valid", "request": {"method": "POST", "header": [{"key": "Content-Type", "value": "application/json"}], "body": {"mode": "raw", "raw": "{\"username\":\"acmecorp\",\"password\":\"securepass123\"}"}, "url": "{{base_url}}/api/auth/login/"}},
+    {"name": "Login invalid", "request": {"method": "POST", "header": [{"key": "Content-Type", "value": "application/json"}], "body": {"mode": "raw", "raw": "{\"username\":\"acmecorp\",\"password\":\"wrong\"}"}, "url": "{{base_url}}/api/auth/login/"}},
+    {"name": "Query without token", "request": {"method": "POST", "header": [{"key": "Content-Type", "value": "application/json"}], "body": {"mode": "raw", "raw": "{\"search\":\"select_related\"}"}, "url": "{{base_url}}/api/kb/query/"}},
+    {"name": "Query matching entries", "request": {"method": "POST", "header": [{"key": "Authorization", "value": "Bearer {{access_token}}"}], "body": {"mode": "raw", "raw": "{\"search\":\"select_related\"}"}, "url": "{{base_url}}/api/kb/query/"}},
+    {"name": "Query zero results", "request": {"method": "POST", "header": [{"key": "Authorization", "value": "Bearer {{access_token}}"}], "body": {"mode": "raw", "raw": "{\"search\":\"not-a-real-term\"}"}, "url": "{{base_url}}/api/kb/query/"}},
+    {"name": "Query blank search", "request": {"method": "POST", "header": [{"key": "Authorization", "value": "Bearer {{access_token}}"}], "body": {"mode": "raw", "raw": "{\"search\":\" \"}"}, "url": "{{base_url}}/api/kb/query/"}},
+    {"name": "Usage summary as client", "request": {"method": "GET", "header": [{"key": "Authorization", "value": "Bearer {{access_token}}"}], "url": "{{base_url}}/api/admin/usage-summary/"}},
+    {"name": "Usage summary as admin", "request": {"method": "GET", "header": [{"key": "Authorization", "value": "Bearer {{access_token}}"}], "url": "{{base_url}}/api/admin/usage-summary/"}},
+    {"name": "Admin login", "request": {"method": "POST", "header": [{"key": "Content-Type", "value": "application/json"}], "body": {"mode": "raw", "raw": "{\"username\":\"admin\",\"password\":\"securepass123\"}"}, "url": "{{base_url}}/api/auth/login/"}}
+  ]
+}
